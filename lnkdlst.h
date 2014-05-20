@@ -101,6 +101,50 @@ void *ll_remove(LNKDLST);
 
 // ll_peek is also a FIFO-style function
 
+/* Iteration
+ * 
+ * Note: If a call is made to a remove function such that
+ * it would remove the node on which the list's internal iterator
+ * would next traverse, the iterator will be automatically advanced.
+ */
+
+// initializes this list's internal iterator
+// at the specified index
+// the bool sets the direction of iteration
+// true for forward iteration, false for backward
+void ll_setitr(LNKDLST, int index, bool forward);
+
+
+// initializes this list's internal iterator
+// at the beginning of the list, iterating forwards
+// equivalent to ll_setitr(lnkdlst, 0, true);
+void ll_setitrF(LNKDLST);
+
+
+// initializes this list's internal iterator
+// at the end of the list, iterating backwards
+// equivalent to:
+// ll_setitr(lnkdlst, ll_size(lnkdlst) - 1, false);
+void ll_setitrB(LNKDLST);
+
+// checks if the list's internal iterator
+// has items left to return
+// useful for loop termination conditions
+// must have made a call to a setitr function
+// before using
+bool ll_hasnext(LNKDLST);
+
+// retrieves and returnes the data at the position
+// of the list's internal iterator, and advances it
+// returns NULL if there are no items left to return
+// of course, it would naturally return NULLs if you have
+// stored NULLs in the list -- if you are foing this,
+// you should use ll_hasnext to check if the iterator
+// is at the end of the list
+// must have made a call to a setitr function
+// before using
+void *ll_next(LNKDLST);
+
 // close c++ support
 #ifdef __cplusplus
 }
