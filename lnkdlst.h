@@ -104,8 +104,9 @@ void *ll_remove(LNKDLST);
 /* Iteration
  * 
  * Note: If a call is made to a remove function such that
- * it would remove the node on which the list's internal iterator
- * would next traverse, the iterator will be automatically advanced.
+ * it would remove the node which the list's internal iterator
+ * would return upon the next call to ll_next(),
+ * the iterator will be automatically advanced.
  */
 
 // initializes this list's internal iterator
@@ -127,18 +128,22 @@ void ll_setitrF(LNKDLST);
 // ll_setitr(lnkdlst, ll_size(lnkdlst) - 1, false);
 void ll_setitrB(LNKDLST);
 
+// reverses the direction of this list's internal iterator
+void ll_itrreverse(LNKDLST);
+
 // checks if the list's internal iterator
 // has items left to return
 // useful for loop termination conditions
 // must have made a call to a setitr function
-// before using
+// before using -- returns false if this is
+// not the case
 bool ll_hasnext(LNKDLST);
 
 // retrieves and returnes the data at the position
 // of the list's internal iterator, and advances it
 // returns NULL if there are no items left to return
 // of course, it would naturally return NULLs if you have
-// stored NULLs in the list -- if you are foing this,
+// stored NULLs in the list -- if you are doing this,
 // you should use ll_hasnext to check if the iterator
 // is at the end of the list
 // must have made a call to a setitr function

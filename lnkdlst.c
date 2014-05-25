@@ -6,6 +6,9 @@ struct LNKDLST {
 	struct node *head;
 	struct node *tail;
 	int size;
+
+	struct node *itr;
+	bool forward;
 };
 
 struct node {
@@ -28,6 +31,9 @@ LNKDLST ll_init(void) {
 	newll->tail = initarr + 1;
 	newll->head->data = NULL;
 	newll->tail->data = NULL;
+
+	newll->itr = NULL;
+	newll->forward = true;
 
 	newll->head->next = newll->tail;
 	newll->tail->next = NULL;
@@ -286,4 +292,63 @@ void ll_add(LNKDLST lnkdlst, void *data) {
 
 void *ll_remove(LNKDLST lnkdlst) {
 	return ll_removefirst(lnkdlst);
+}
+
+//Iteration
+
+void ll_setitr(LNKDLST lnkdlst, int index, bool forward) {
+	// if index is past the end of the list, do nothing
+	if (index >= lnkdlst->size || index < 0)
+		return;
+
+	// find spot in list to get node
+	struct node *n = lnkdlst->head;
+	int i = 0;
+	while (i < index) {
+		n = n->next;
+		i++;
+	}
+
+	lnkdlst->itr = n->next;
+	lnkdlst->forward = forward;
+}
+
+void ll_setitrF(LNKDLST lnkdlst) {
+	// if list is empty, do nothing
+	if (lnkdlst->size == 0)
+		return;
+
+	lnkdlst->itr = lnkdlst->head->next;
+	lnkdlst->forward = true;
+}
+
+void ll_setitrB(LNKDLST lnkdlst) {
+	// if list is empty, do nothing
+	if (lnkdlst->size == 0)
+		return;
+
+	lnkdlst->itr = lnkdlst->tail->previous;
+	lnkdlst->forward = false;
+}
+
+void ll_itrreverse(LNKDLST lnkdlst) {
+	lnkdlst->forward = !lnkdlst->forward;
+}
+
+bool ll_hasnext(LNKDLST lnkdlst) {
+	if (lnkdlst->itr == NULL ||
+	   (lnkdlst->forward == true && lnkdlst->itr == lnkdlst->tail) ||
+	   (lnkdlst->forward == false && lnkdlst->itr == lnkdlst->head))
+		return false;
+	else
+		return true;
+}
+
+void *ll_next(LNKDLST lnkdlst) {
+	if (!ll_hasnext(lnkdlst))
+		return NULL;
+
+	void *returnme = lnkdlst->itr->data;
+	lnkdlst->itr = lnkdlst->forward ? lnkdlst->itr->next : lnkdlst->itr->previous;
+	return returnme;
 }
