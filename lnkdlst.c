@@ -391,3 +391,10 @@ void *ll_exchange(LNKDLST lnkdlst, void *data) {
 	lnkdlst->itr->data = data;
 	return temp;
 }
+
+void *ll_itrpeek(LNKDLST lnkdlst) {
+	if (!ll_hasnext(lnkdlst))
+		return NULL;
+
+	return lnkdlst->itr->data;
+}
