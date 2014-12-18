@@ -10,8 +10,8 @@ libdatastruct.so: lnkdlst.o priqueue.o
 lnkdlst.o: lnkdlst.c lnkdlst.h
 	gcc $(CFLAGS) -c -o lnkdlst.o lnkdlst.c
 
-lnkdlst.o: priqueue.c priqueue.h lnkdlst.h
-	gcc $(CFLAGS) -c -o lnkdlst.o lnkdlst.c
+priqueue.o: priqueue.c priqueue.h lnkdlst.h
+	gcc $(CFLAGS) -c -o priqueue.o priqueue.c
 
 clean:
 	rm -f *~ libdatastruct.so *.o
