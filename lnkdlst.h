@@ -21,13 +21,22 @@ LNKDLST ll_init(void);
 // use the lnkdlst for anything else
 // this method does not free the data stored
 // in the list
-//
 void ll_destroy(LNKDLST);
 
 // like ll_destroy, but also calls free
 // (from stdlib.h) on each non-null datem
 // in the lnkdlst
+//
+// note: as you may be using a custom malloc
+// implementation, it may be safer to call
+// custdestroy instead, passing a pointer
+// to your free function.
 void ll_autodestroy(LNKDLST);
+
+// like ll_autodestroy, but calls the given del
+// function on each non-null datem in the list
+// instead of free
+void ll_custdestroy(LNKDLST, void (*del)(void *ptr));
 
 // returns a shallow copy of a LNKDLST
 LNKDLST ll_clone(LNKDLST);

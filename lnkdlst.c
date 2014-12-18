@@ -75,6 +75,24 @@ void ll_autodestroy(LNKDLST sacrifice) {
 	free(sacrifice);
 }
 
+
+void ll_custdestroy(LNKDLST sacrifice, void (*del)(void *ptr)) {
+	struct node *nextinline = sacrifice->head->next;
+	while (nextinline != sacrifice->tail) {
+		struct node *tmp = nextinline->next;
+		if (nextinline->data != NULL) {
+			del(nextinline->data);
+		}
+		free(nextinline);
+		nextinline = tmp;
+	}
+
+	// will also free tail, b/c they were malloc'd together
+	free(sacrifice->head);
+
+	free(sacrifice);
+}
+
 LNKDLST ll_clone(LNKDLST lnkdlst) {
 	LNKDLST newll;
 	if ((newll = ll_init()) == NULL)
