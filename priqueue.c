@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lnkdlst.h"
+#include "priqueue.h"
 
 struct PRIQUEUENODE {
 	void *data;

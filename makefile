@@ -4,10 +4,13 @@ LDFLAGS=
 
 default: libdatastruct.so
 
-libdatastruct.so: lnkdlst.o
-	gcc $(CFLAGS) $(LDFLAGS) -o libdatastruct.so lnkdlst.o
+libdatastruct.so: lnkdlst.o priqueue.o
+	gcc $(CFLAGS) $(LDFLAGS) -o libdatastruct.so lnkdlst.o priqueue.o
 
 lnkdlst.o: lnkdlst.c lnkdlst.h
+	gcc $(CFLAGS) -c -o lnkdlst.o lnkdlst.c
+
+lnkdlst.o: priqueue.c priqueue.h lnkdlst.h
 	gcc $(CFLAGS) -c -o lnkdlst.o lnkdlst.c
 
 clean:
