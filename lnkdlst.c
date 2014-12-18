@@ -366,10 +366,7 @@ void *ll_next(LNKDLST lnkdlst) {
 }
 
 void *ll_exchange(LNKDLST lnkdlst, void *data) {
-	// test if iterator is at end of list;
-	// do nothing if so
-	if (lnkdlst->itr == lnkdlst->tail ||
-	    lnkdlst->itr == lnkdlst->head)
+	if (!ll_hasnext(lnkdlst))
 		return NULL;
 
 	void *temp = lnkdlst->itr->data;
