@@ -52,7 +52,6 @@ out:
 
 static PRIQUEUENODE pair(PRIQUEUENODE p, PRIQUEUENODE q,
 		int (*compar)(const void *, const void *)) {
-	PRIQUEUENODE t;
 	if (compar(p->data, q->data) < 0) {
 		p->right = q->left;
 		q->left = p;
@@ -76,7 +75,7 @@ PRIQUEUENODE pq_insert(PRIQUEUE pq, void *v) {
 			(void) ll_exchange(pq->binqueue, c);
 			break;
 		}
-		c = pair(c, ll_itrpeek(pq->binqueue));
+		c = pair(c, ll_itrpeek(pq->binqueue), pq->compar);
 		(void) ll_exchange(pq->binqueue, NULL);
 		(void) ll_next(pq->binqueue);
 	}
@@ -95,7 +94,7 @@ void *pq_remove(PRIQUEUE pq) {
 		goto out;
 
 	int i = 0, max = -1;
-	ll->setitrF(pq->binqueue);
+	ll_setitrF(pq->binqueue);
 	while (ll_hasnext(pq->binqueue)) {
 		PRIQUEUENODE w = ll_next(pq->binqueue);
 		if (w != NULL)
