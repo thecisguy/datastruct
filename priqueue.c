@@ -63,4 +63,26 @@ static PRIQUEUENODE pair(PRIQUEUENODE p, PRIQUEUENODE q,
 	}
 }
 
+PRIQUEUENODE pq_insert(PRIQUEUE pq, void *v) {
+	PRIQUEUENODE c, t;
+	c = t = new_priqueuenode(v);
+	if (!t)
+		goto out;
+	
+	ll_setitrF(pq->binqueue);
+	while (ll_hasnext(pq->binqueue)) {
+		if (ll_itrpeek(pq->binqueue) == NULL) {
+			(void) ll_exchange(pq->binqueue, c);
+			break;
+		}
+		c = pair(c, ll_itrpeek(pq->binqueue));
+		(void) ll_exchange(pq->binqueue, NULL);
+		(void) ll_next(pq->binqueue);
+	}
+	if (!ll_hasnext(pq->binqueue)) {
+		ll_add(pq->binqueue, c);
+	}
 
+out:
+	return t;
+}
