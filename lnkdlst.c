@@ -349,8 +349,8 @@ void ll_itrreverse(LNKDLST lnkdlst) {
 
 bool ll_hasnext(LNKDLST lnkdlst) {
 	if (lnkdlst->itr == NULL ||
-	   (lnkdlst->forward == true && lnkdlst->itr == lnkdlst->tail) ||
-	   (lnkdlst->forward == false && lnkdlst->itr == lnkdlst->head))
+	    lnkdlst->itr == lnkdlst->tail ||
+	    lnkdlst->itr == lnkdlst->head)
 		return false;
 	else
 		return true;
