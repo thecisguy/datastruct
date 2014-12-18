@@ -87,6 +87,18 @@ LNKDLST ll_clone(LNKDLST lnkdlst) {
 	return newll;
 }
 
+LNKDLST ll_deepclone(LNKDLST lnkdlst, void *(*clone)(void *)) {
+	LNKDLST newll;
+	if ((newll = ll_init()) == NULL)
+		return NULL;
+	struct node *item = lnkdlst->head->next;
+	while (item != lnkdlst->tail) {
+		ll_addlast(lnkdlst, clone(item->data));
+		item = item->next;
+	}
+	return newll;
+}
+
 // Conventional use
 void ll_addnum(LNKDLST lnkdlst, void *data, int index) {
 	// if index is past the end of the list, do nothing

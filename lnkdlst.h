@@ -24,13 +24,20 @@ LNKDLST ll_init(void);
 //
 void ll_destroy(LNKDLST);
 
-// like ll_destroy, but also calls free()
+// like ll_destroy, but also calls free
 // (from stdlib.h) on each non-null datem
 // in the lnkdlst
 void ll_autodestroy(LNKDLST);
 
 // returns a shallow copy of a LNKDLST
 LNKDLST ll_clone(LNKDLST);
+
+// returns a deep copy of a LNKDLST,
+// by calling clone on each item.
+// clone should take a pointer to an item
+// stored in the list and return a pointer to
+// a copy of that item.
+LNKDLST ll_deepclone(LNKDLST, void *(*clone)(void *));
 
 /* Conventional use */
 
