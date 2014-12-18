@@ -364,3 +364,15 @@ void *ll_next(LNKDLST lnkdlst) {
 	lnkdlst->itr = lnkdlst->forward ? lnkdlst->itr->next : lnkdlst->itr->previous;
 	return returnme;
 }
+
+void *ll_exchange(LNKDLST lnkdlst, void *data) {
+	// test if iterator is at end of list;
+	// do nothing if so
+	if (lnkdlst->itr == lnkdlst->tail ||
+	    lnkdlst->itr == lnkdlst->head)
+		return NULL;
+
+	void *temp = lnkdlst->itr->data;
+	lnkdlst->itr->data = data;
+	return temp;
+}

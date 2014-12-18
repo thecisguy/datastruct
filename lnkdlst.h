@@ -157,6 +157,11 @@ bool ll_hasnext(LNKDLST);
 // before using
 void *ll_next(LNKDLST);
 
+// exchanges the value at the position of the list's
+// internal iterator with the given one, returning
+// the old value
+void *ll_exchange(LNKDLST, void *);
+
 // close c++ support
 #ifdef __cplusplus
 }
