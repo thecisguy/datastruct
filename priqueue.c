@@ -86,3 +86,40 @@ PRIQUEUENODE pq_insert(PRIQUEUE pq, void *v) {
 out:
 	return t;
 }
+
+void *pq_remove(PRIQUEUE pq) {
+	void *v = NULL;
+	PRIQUEUE temp = pq_init(pq->compar);
+	if (!temp)
+		goto out;
+
+	int i = 0, max = -1;
+	ll->setitrF(pq->binqueue);
+	while (ll_hasnext(pq->binqueue)) {
+		PRIQUEUENODE w = ll_next(pq->binqueue);
+		if (w != NULL)
+			if ((max == -1) || (pq->compar(w->data, v) > 0)) {
+				max = i;
+				v = w->data;
+			}
+		i++;
+	}
+	if (max == -1)
+		goto out;
+
+	ll_setitr(pq->binqueue, max, true);
+	PRIQUEUENODE x = ((PRIQUEUENODE) ll_itrpeek(pq->binqueue))->left;
+	for (i = max; i > 0; i--) {
+		PRIQUEUENODE y = x->right;
+		x->right = NULL;
+		ll_push(temp->binqueue, x);
+		x = y;
+	}
+	free(ll_exchange(pq->binqueue, NULL));
+	if (max == ll_size(pq->binqueue) - 1)
+		(void) ll_removelast(pq->binqueue);
+	pq_join(pq, temp);
+
+out:
+	return v;
+}
