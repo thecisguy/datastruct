@@ -174,7 +174,7 @@ void *ll_exchange(LNKDLST, void *);
 
 // retrieves and returns the value at the position of
 // the list's internal iterator, without advancing it
-void *ll_itrpeek(LNKDLST)
+void *ll_itrpeek(LNKDLST);
 
 // close c++ support
 #ifdef __cplusplus
