@@ -125,7 +125,7 @@ void ll_addnum(LNKDLST lnkdlst, void *data, int index) {
 
 	// initialize new node
 	struct node *newnode;
-	if ((newnode = (struct node *) malloc(sizeof(struct node *))) == NULL)
+	if ((newnode = (struct node *) malloc(sizeof(struct node))) == NULL)
 		return;
 	newnode->data = data;
 
@@ -148,7 +148,7 @@ void ll_addnum(LNKDLST lnkdlst, void *data, int index) {
 void ll_addfirst(LNKDLST lnkdlst, void *data) {
 	// initialize new node
 	struct node *newnode;
-	if ((newnode = (struct node *) malloc(sizeof(struct node *))) == NULL)
+	if ((newnode = (struct node *) malloc(sizeof(struct node))) == NULL)
 		return;
 	newnode->data = data;
 
@@ -163,7 +163,7 @@ void ll_addfirst(LNKDLST lnkdlst, void *data) {
 void ll_addlast(LNKDLST lnkdlst, void *data) {
 	// initialize new node
 	struct node *newnode;
-	if ((newnode = (struct node *) malloc(sizeof(struct node *))) == NULL)
+	if ((newnode = (struct node *) malloc(sizeof(struct node))) == NULL)
 		return;
 	newnode->data = data;
 
