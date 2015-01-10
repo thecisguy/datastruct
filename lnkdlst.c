@@ -99,7 +99,7 @@ LNKDLST ll_clone(LNKDLST lnkdlst) {
 		return NULL;
 	struct node *item = lnkdlst->head->next;
 	while (item != lnkdlst->tail) {
-		ll_addlast(lnkdlst, item->data);
+		ll_addlast(newll, item->data);
 		item = item->next;
 	}
 	return newll;
@@ -111,7 +111,7 @@ LNKDLST ll_deepclone(LNKDLST lnkdlst, void *(*clone)(void *)) {
 		return NULL;
 	struct node *item = lnkdlst->head->next;
 	while (item != lnkdlst->tail) {
-		ll_addlast(lnkdlst, clone(item->data));
+		ll_addlast(newll, clone(item->data));
 		item = item->next;
 	}
 	return newll;
