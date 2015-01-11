@@ -1,6 +1,6 @@
 # makefile
 # 
-# Copyright (C) 2014 - Blake Lowe
+# Copyright (C) 2014-2015 - Blake Lowe
 #
 # This file is part of datastruct.
 # 
