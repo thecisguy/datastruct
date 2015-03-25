@@ -19,6 +19,7 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
 
 #include "vectr.h"
 
@@ -66,4 +67,15 @@ static size_t nlpo2(size_t x) {
 void vc_destroy(VECTR vc) {
 	free(vc->data);
 	free(vc);
+}
+
+VECTR vc_clone(VECTR vc) {
+	VECTR clone;
+	if ((clone = vc_init(vc->size, vc->item_size)) == NULL)
+			goto out;
+
+	memcpy(clone->data, vc->data, vc->size * vc->item_size);
+
+	out:
+	return clone;
 }
