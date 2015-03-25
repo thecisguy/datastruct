@@ -79,3 +79,11 @@ VECTR vc_clone(VECTR vc) {
 	out:
 	return clone;
 }
+
+size_t vc_size(VECTR vc) {
+	return vc->size;
+}
+
+size_t vc_capacity(VECTR vc) {
+	return vc->capacity;
+}
