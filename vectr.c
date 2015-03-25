@@ -56,7 +56,10 @@ VECTR vc_init(size_t initial_size, size_t item_size) {
 //
 // later we may want to create a _Generic version with
 // hardcoded calculations for 32- and 64- bit size_ts,
-// but for now this is good enough.
+// but for now this is good enough, as sizeof() values
+// are known at compile-time, and therefore optimizing compilers
+// that can unroll loops will very likely generate the fastest
+// possible code anyway.
 static size_t nlpo2(size_t x) {
 	for (size_t i = 1; i < sizeof(size_t) * 8; i *= 2) {
 		x |= (x >> i);
