@@ -24,6 +24,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include <sys/types.h>
+
 // prepare for c++ support
 #ifdef __cplusplus
 extern "C" {

@@ -17,3 +17,48 @@
  * You should have received a copy of the GNU General Public License
  * along with datastruct. If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include <stdlib.h>
+
+#include "vectr.h"
+
+struct VECTR {
+	void *data;
+	size_t size;
+	size_t capacity;
+	size_t item_size;
+};
+
+static size_t nlpo2(size_t x);
+
+VECTR vc_init(size_t initial_size, size_t item_size) {
+	VECTR newvc;
+	if ((newvc = malloc(sizeof(struct VECTR))) == NULL)
+		goto out;
+
+	newvc->size = 0;
+	newvc->capacity = nlpo2(initial_size);
+	newvc->item_size = item_size;
+
+	if ((newvc->data = malloc(newvc->capacity * item_size)) == NULL) {
+		free(newvc);
+		goto out;
+	}
+
+	out:
+		return newvc;
+}
+
+// computes the next largest power of 2 of x
+// this is a fairly well-known algorithm,
+// modified to work on size_t values of any wordsize.
+//
+// later we may want to create a _Generic version with
+// hardcoded calculations for 32- and 64- bit size_ts,
+// but for now this is good enough.
+static size_t nlpo2(size_t x) {
+	for (size_t i = 1; i < sizeof(size_t) * 8; i *= 2) {
+		x |= (x >> i);
+	}
+	return(x+1);
+}
