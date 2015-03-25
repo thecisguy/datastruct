@@ -62,3 +62,8 @@ static size_t nlpo2(size_t x) {
 	}
 	return(x+1);
 }
+
+void vc_destroy(VECTR vc) {
+	free(vc->data);
+	free(vc);
+}
