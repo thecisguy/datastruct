@@ -104,6 +104,23 @@ void *vc_get(VECTR, size_t index);
 // if new_size is greater than the vectr's capacity, the result is undefined.
 void vc_updatesize(VECTR, size_t new_size);
 
+// ensures that there is enough space in the vector to store
+// at least new_capacity items. the actual capacity the vectr
+// ends up with is implementation-defined.
+//
+// if the new capacity would be the same as the old capacity,
+// there is no effect (besides potentially updating size, see below).
+// otherwise, a resize is performed. if the resize cannot be performed,
+// for example, due to a lack of memory, this function has no effect
+// whatsoever on the vectr.
+//
+// if new_capacity is 0, the effect is to destroy the vector; see vc_destroy.
+// if new_capacity is smaller than the current size, the values
+// from indices [capacity, size) may be lost permanently, depending
+// on the capacity the vectr actually ends up with. size will be set
+// to the value of new_capacity.
+void vc_updatecapacity(VECTR, size_t new_capacity);
+
 // close c++ support
 #ifdef __cplusplus
 }

@@ -100,7 +100,7 @@ void vc_pushback(VECTR vc, const void *item) {
 	if (vc->size == vc->capacity) {
 		size_t newcap = nlpo2(vc->size + 1);
 		void *newdata;
-		if ((newdata = realloc(vc->data, newcap)) == NULL)
+		if ((newdata = realloc(vc->data, newcap * vc->item_size)) == NULL)
 			goto out;
 		vc->data = newdata;
 		vc->capacity = newcap;
@@ -125,4 +125,25 @@ void *vc_get(VECTR vc, size_t index) {
 
 void vc_updatesize(VECTR vc, size_t new_size) {
 	vc->size = new_size;
+}
+
+void vc_updatecapacity(VECTR vc, size_t new_capacity) {
+	if (new_capacity == 0) {
+		vc_destroy(vc);
+	}
+
+	size_t realnewcap = nlpo2(new_capacity);
+	if (realnewcap != vc->capacity) {
+		void *newdata;
+		if ((newdata = realloc(vc->data, realnewcap * vc->item_size)) == NULL)
+			goto out;
+		vc->data = newdata;
+		vc->capacity = realnewcap;
+	}
+
+	if (new_capacity < vc->size)
+		vc->size = new_capacity;
+
+	out:
+	return;
 }
