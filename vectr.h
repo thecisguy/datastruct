@@ -66,7 +66,7 @@ size_t vc_size(VECTR);
 // returns the number of elements this vectr can store without resizing.
 size_t vc_capacity(VECTR);
 
-// returns the index of the first occurance
+// returns the index of the first occurrence
 // of the given item in the vectr,
 // or -1 if it is not present
 ssize_t vc_indexof(VECTR, const void *item);
@@ -76,6 +76,10 @@ ssize_t vc_indexof(VECTR, const void *item);
 // this function performs in constant time amortized, as it may
 // cause the vectr to be resized (iff the new size would exceed
 // the vectr's capacity).
+//
+// if this operation would cause the vector to be resized, but
+// additional memory is not available, this function has
+// no effect whatsoever on the vectr.
 void vc_pushback(VECTR, const void *item);
 
 // returns a pointer to the index-th element of the vector

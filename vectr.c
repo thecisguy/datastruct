@@ -95,3 +95,19 @@ ssize_t vc_indexof(VECTR vc, const void *item) {
 		index++;
 	return index == vc->size ? -1 : index;
 }
+
+void vc_pushback(VECTR vc, const void *item) {
+	if (vc->size == vc->capacity) {
+		size_t newcap = nlpo2(vc->size + 1);
+		void *newdata;
+		if ((newdata = realloc(vc->data, newcap)) == NULL)
+			goto out;
+		vc->data = newdata;
+		vc->capacity = newcap;
+	}
+
+	memcpy(vc->data + vc->size++ * vc->item_size, item, vc->item_size);
+
+	out:
+	return;
+}
