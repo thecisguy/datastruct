@@ -122,3 +122,7 @@ void *vc_get(VECTR vc, size_t index) {
 	out:
 	return val;
 }
+
+void vc_updatesize(VECTR vc, size_t new_size) {
+	vc->size = new_size;
+}

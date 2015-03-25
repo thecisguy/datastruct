@@ -91,6 +91,19 @@ void vc_pushback(VECTR, const void *item);
 // vector's size)
 void *vc_get(VECTR, size_t index);
 
+// updates the value of this vector's size.
+//
+// this can be used to "delete" unwanted items at the end of the array,
+// by providing a number smaller than its current size.
+//
+// alternatively, by providing a larger number, it can be used to notify
+// the vectr that you have added new items beyond its current size
+// (but, obviously, within its current capacity) by means of writing to
+// the block of memory returned by vc_data.
+//
+// if new_size is greater than the vectr's capacity, the result is undefined.
+void vc_updatesize(VECTR, size_t new_size);
+
 // close c++ support
 #ifdef __cplusplus
 }
