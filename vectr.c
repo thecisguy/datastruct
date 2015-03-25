@@ -111,3 +111,14 @@ void vc_pushback(VECTR vc, const void *item) {
 	out:
 	return;
 }
+
+void *vc_get(VECTR vc, size_t index) {
+	void *val = NULL;
+	if (index >= vc->size)
+		goto out;
+
+	val = vc->data + index * vc->item_size;
+
+	out:
+	return val;
+}
