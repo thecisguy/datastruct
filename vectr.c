@@ -87,3 +87,11 @@ size_t vc_size(VECTR vc) {
 size_t vc_capacity(VECTR vc) {
 	return vc->capacity;
 }
+
+ssize_t vc_indexof(VECTR vc, const void *item) {
+	ssize_t index = 0;
+	while (index < vc->size &&
+			memcmp(vc->data + index * vc->item_size, item, vc->item_size) != 0)
+		index++;
+	return index == vc->size ? -1 : index;
+}
