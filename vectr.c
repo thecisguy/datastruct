@@ -61,6 +61,7 @@ VECTR vc_init(size_t initial_size, size_t item_size) {
 // that can unroll loops will very likely generate the fastest
 // possible code anyway.
 static size_t nlpo2(size_t x) {
+	x--;
 	for (size_t i = 1; i < sizeof(size_t) * 8; i *= 2) {
 		x |= (x >> i);
 	}
